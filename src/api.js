@@ -3,7 +3,7 @@ const { url, headers, max_iter, max_retries } = require('./constants')
 const { sleep, getToken } = require('./utils')
 
 
-async function image_search({ query, moderate, retries, iterations }) {
+async function image_search({ query, moderate, retries, iterations, license }) {
 
     let reqUrl = url + 'i.js';
     let keywords = query
@@ -19,12 +19,17 @@ async function image_search({ query, moderate, retries, iterations }) {
         let token = await getToken(keywords);
 
         let params = {
-            "l": "wt-wt",
+            "l": "en-us",
             "o": "json",
             "q": keywords,
             "vqd": token,
+            "u": "bing",
             "f": ",,,",
             "p": "" + (p)
+        }
+
+        if (license) {
+            params["license"] = license;
         }
 
         let data = null;
