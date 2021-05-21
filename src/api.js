@@ -84,7 +84,7 @@ async function image_search({ query, moderate, retries, iterations, license }) {
 
 
 
-async function* image_search_generator({ query, moderate, retries, iterations }) {
+async function* image_search_generator({ query, moderate, retries, iterations, license }) {
 
     let reqUrl = url + 'i.js';
     let keywords = query
@@ -107,6 +107,10 @@ async function* image_search_generator({ query, moderate, retries, iterations })
             "f": ",,,",
             "p": "" + (p)
         }
+        if (license) {
+            params["license"] = license;
+        }
+
         
         let itr = 0;
 
